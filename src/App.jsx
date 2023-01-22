@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import AudioStuff from './AudioStuff';
+import AudioDevice from './AudioDevice';
 import { AudioProvider } from './Components/AudioContext';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       {started && (
         <>
           <AudioProvider>
-            <AudioStuff />
+            <AudioDevice />
           </AudioProvider>
         </>
       )}
