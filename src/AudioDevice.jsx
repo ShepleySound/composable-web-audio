@@ -61,7 +61,7 @@ function Osc({ frequency = 2000 }) {
   );
 }
 
-function Gain({ gain = 0.5 }) {
+function Gain({ gain = 0 }) {
   const audio = useContext(Audio);
   const parent = useContext(Series);
   const node = useRef(
@@ -113,6 +113,18 @@ export default function AudioStuff() {
     <div>
       <button onClick={checkContext}>Check Audio</button>
       <div>
+        <SeriesProvider>
+          <Osc />
+          <Gain />
+        </SeriesProvider>
+        <SeriesProvider>
+          <Osc />
+          <Gain />
+        </SeriesProvider>
+        <SeriesProvider>
+          <Osc />
+          <Gain />
+        </SeriesProvider>
         <SeriesProvider>
           <Osc />
           <Gain />

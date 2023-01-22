@@ -28,8 +28,10 @@ export function SeriesProvider({ children }) {
   }, []);
 
   return (
-    <Series.Provider value={{ nodes: nodes.current }}>
-      {children}
-    </Series.Provider>
+    <div>
+      <Series.Provider value={{ nodes: nodes.current }}>
+        {children}
+      </Series.Provider>
+    </div>
   );
 }
