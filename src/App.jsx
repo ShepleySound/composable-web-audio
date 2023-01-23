@@ -10,7 +10,7 @@ function App() {
   }
 
   return (
-    <div className='h-full bg-slate-800 flex align-center justify-center text-slate-100'>
+    <div className='bg-slate-800 min-h-screen flex align-center justify-center text-slate-100'>
       {!started && (
         <button onClick={powerUp} className=''>
           Power Up

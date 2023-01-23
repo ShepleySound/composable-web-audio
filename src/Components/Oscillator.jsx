@@ -4,14 +4,7 @@ import { Audio } from './AudioContext';
 import FrequencyKnob from './FrequencyKnob';
 import { Series } from './Series';
 
-// import {
-//   CircularInput,
-//   CircularTrack,
-//   CircularProgress,
-//   CircularThumb,
-// } from 'react-circular-input';
-
-export default function Osc({ initFrequency = 2000, initType = 'sine' }) {
+export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   const audio = useContext(Audio);
   const parent = useContext(Series);
   const id = useRef(`Osc${Date.now()}`);
@@ -22,12 +15,6 @@ export default function Osc({ initFrequency = 2000, initType = 'sine' }) {
     })
   );
   const [type, setType] = useState(initType);
-
-  // const min = 0;
-  // const max = 1;
-  // const valueWithinLimits = (v) => Math.min(Math.max(v, min), max);
-  // const range = [20, 20000];
-  // const rangeValue = Math.round(frequency * (range[1] - range[0]) + range[0]);
 
   useEffect(() => {
     try {
@@ -51,9 +38,11 @@ export default function Osc({ initFrequency = 2000, initType = 'sine' }) {
   }, [frequency]);
 
   return (
-    <section>
+    <section className='border-slate-600 border-2 p-2 rounded-md flex flex-col items-center justify-center'>
       <h2>Oscillator</h2>
-      <FrequencyKnob handleChange={setFrequency} frequency={frequency} />
+      <div>
+        <FrequencyKnob handleChange={setFrequency} frequency={frequency} />
+      </div>
       <div>
         <select
           name='osctypes'
