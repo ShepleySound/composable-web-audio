@@ -2,6 +2,7 @@ import { useEffect, useRef, useContext } from 'react';
 
 import { Audio } from './AudioContext';
 import GainKnob from './GainKnob';
+import NodeContainer from './NodeContainer';
 import { Series } from './Series';
 
 export default function Gain({ gain = 0 }) {
@@ -28,12 +29,12 @@ export default function Gain({ gain = 0 }) {
   }, []);
 
   return (
-    <section>
+    <NodeContainer>
       <h2>Gain</h2>
       <div>
         <label>volume</label>
         <GainKnob gain={node.current.gain.value} handleChange={changeGain} />
       </div>
-    </section>
+    </NodeContainer>
   );
 }

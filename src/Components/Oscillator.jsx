@@ -5,6 +5,7 @@ import { RadioGroup } from '@headlessui/react';
 import { Audio } from './AudioContext';
 import FrequencyKnob from './FrequencyKnob';
 import { Series } from './Series';
+import NodeContainer from './NodeContainer';
 
 export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   const audio = useContext(Audio);
@@ -51,7 +52,7 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   }
 
   return (
-    <section className='border-slate-600 border-2 p-2 rounded-md flex flex-col items-center justify-center'>
+    <NodeContainer>
       <label>Oscillator</label>
       <div>
         <FrequencyKnob handleChange={setFrequency} frequency={frequency} />
@@ -87,6 +88,6 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
           </div>
         </RadioGroup>
       </div>
-    </section>
+    </NodeContainer>
   );
 }

@@ -34,7 +34,7 @@ export function SeriesProvider({ children }) {
   }, []);
 
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-row mb-4'>
       <Series.Provider value={{ nodes: nodes.current }}>
         {children}
       </Series.Provider>
