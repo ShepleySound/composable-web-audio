@@ -3,6 +3,7 @@ import Osc from './Components/Oscillator';
 import Gain from './Components/Gain';
 import { Audio } from './Components/AudioContext';
 import { SeriesProvider } from './Components/Series';
+import Filter from './Components/Filter';
 
 export default function AudioStuff() {
   const audio = useContext(Audio);
@@ -18,6 +19,8 @@ export default function AudioStuff() {
       <div>
         <SeriesProvider>
           <Osc />
+          <Filter />
+          <Filter />
           <Gain />
         </SeriesProvider>
         <SeriesProvider>
