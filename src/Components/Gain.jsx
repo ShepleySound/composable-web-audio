@@ -1,6 +1,7 @@
 import { useEffect, useRef, useContext } from 'react';
 
 import { Audio } from './AudioContext';
+import GainKnob from './GainKnob';
 import { Series } from './Series';
 
 export default function Gain({ gain = 0 }) {
@@ -12,6 +13,10 @@ export default function Gain({ gain = 0 }) {
     })
   );
   const id = useRef(`Gain${Date.now()}`);
+
+  function changeGain(value) {
+    node.current.gain.value = value;
+  }
 
   useEffect(() => {
     parent.nodes.set(id.current, node.current);
@@ -27,17 +32,7 @@ export default function Gain({ gain = 0 }) {
       <h2>Gain</h2>
       <div>
         <label>volume</label>
-        <input
-          onChange={(e) => {
-            console.log(e.target.value);
-            node.current.gain.value = e.target.value;
-          }}
-          type='range'
-          defaultValue={gain}
-          min='0'
-          max='1'
-          step='0.01'
-        />
+        <GainKnob gain={node.current.gain.value} handleChange={changeGain} />
       </div>
     </section>
   );
