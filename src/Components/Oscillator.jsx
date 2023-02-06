@@ -35,8 +35,8 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   }, []);
 
   useEffect(() => {
-    console.log(frequency);
-    console.log(node.current.frequency.value);
+    // console.log(frequency);
+    // console.log(node.current.frequency.value);
     node.current.frequency.value = frequency;
   }, [frequency]);
 
