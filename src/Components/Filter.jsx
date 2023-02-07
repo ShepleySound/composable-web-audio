@@ -11,41 +11,49 @@ const filterTypes = [
     id: 1,
     value: 'lowpass',
     hasGain: false,
+    hasQ: true,
   },
   {
     id: 2,
     value: 'highpass',
     hasGain: false,
+    hasQ: true,
   },
   {
     id: 3,
     value: 'bandpass',
     hasGain: false,
+    hasQ: true,
   },
   {
     id: 4,
     value: 'lowshelf',
-    hasGain: false,
+    hasGain: true,
+    hasQ: false,
   },
   {
     id: 5,
     value: 'highshelf',
-    hasGain: false,
+    hasGain: true,
+    hasQ: false,
   },
   {
     id: 6,
     value: 'peaking',
-    hasGain: false,
+    hasGain: true,
+    hasQ: true,
   },
   {
     id: 7,
     value: 'notch',
     hasGain: false,
+    hasQ: true,
   },
   {
     id: 8,
     value: 'allpass',
     hasGain: false,
+    hasQ: true,
   },
 ];
 
