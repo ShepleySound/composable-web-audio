@@ -11,13 +11,14 @@ export default function ConnectableNode({
   inputSelected = false,
   outputSelected = false,
   node,
+  title,
 }) {
   const connector = useContext(Connector);
   useEffect(() => {
     connector.addNode(node);
   }, []);
   return (
-    <NodeContainer>
+    <NodeContainer title={title}>
       {input && (
         <button
           onClick={() => connector.setSelectedInput(node)}
@@ -26,7 +27,7 @@ export default function ConnectableNode({
           input
         </button>
       )}
-      {children}
+      <div className='flex-grow flex w-full'>{children}</div>
       {output && (
         <button
           onClick={() => connector.setSelectedOutput(node)}

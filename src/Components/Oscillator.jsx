@@ -46,7 +46,6 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
 
   return (
     <ConnectableNode node={node.current}>
-      <label>Oscillator</label>
       <div>
         <FrequencyKnob handleChange={changeFrequency} frequency={frequency} />
       </div>
@@ -62,7 +61,7 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
                     classNames(
                       active && checked ? 'ring ring-offset-1' : '',
                       !active && checked ? 'ring-2' : '',
-                      '-m-0.5 relative p-0.5 rounded-sm flex items-center justify-center cursor-pointer focus:outline-none'
+                      'm-0.5 relative p-0.5 rounded-sm flex items-center justify-center cursor-pointer focus:outline-none'
                     )
                   }
                   onClick={() => changeType(waveform)}
@@ -72,7 +71,7 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
                   </RadioGroup.Label>
                   <span
                     aria-hidden='true'
-                    className='h-8 w-8 border border-black border-opacity-10 rounded-md'
+                    className='h-12 border border-black border-opacity-10 rounded-md'
                   />
                   {waveform}
                 </RadioGroup.Option>

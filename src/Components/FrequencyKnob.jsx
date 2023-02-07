@@ -36,10 +36,10 @@ export default function FrequencyKnob({ handleChange, frequency }) {
           <CircularThumb r={5} />
         </CircularInput>
       </div>
-      <div>
+      <div className='flex'>
         <input
           type='number'
-          className='bg-inherit w-16 text-right appearance-none'
+          className='bg-inherit w-16 text-right appearance-none z-50'
           min={20}
           max={20000}
           value={inputValue}
@@ -50,7 +50,7 @@ export default function FrequencyKnob({ handleChange, frequency }) {
             handleChange(clamped);
           }}
         />
-        <span>Hz</span>
+        <span className='-ml-3 select-none'>Hz</span>
       </div>
     </div>
   );

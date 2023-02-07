@@ -17,10 +17,8 @@ export default function Gain({ gain = 0 }) {
   }
 
   return (
-    <ConnectableNode node={node.current}>
-      <h2>Gain</h2>
+    <ConnectableNode node={node.current} title='Gain'>
       <div>
-        <label>volume</label>
         <GainKnob gain={node.current.gain.value} handleChange={changeGain} />
       </div>
     </ConnectableNode>
