@@ -14,7 +14,7 @@ export default function RadialDial({
   label,
   unit,
 }) {
-  const [value, setValue] = useState(initValue);
+  const [value, setValue] = useState(scaleToUnit(initValue, min, max));
   const clamp = (v, clampMin, clampMax) =>
     Math.min(Math.max(v, clampMin), clampMax);
 
@@ -22,8 +22,8 @@ export default function RadialDial({
   const unitToScale = Math.round(value * (max - min) + min);
 
   // converts the min/max scale to a 0-1 unit.
-  function scaleToUnit(frequency, min, max) {
-    return (frequency - min) / (max - min);
+  function scaleToUnit(value, min, max) {
+    return (value - min) / (max - min);
   }
   return (
     <div className='flex flex-col items-center justify-center'>

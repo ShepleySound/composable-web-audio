@@ -81,8 +81,12 @@ export default function Filter({
   );
 
   function handleChangeType(type) {
+    console.log('q', Q);
+    console.log('gain', gain);
     setType(type);
     node.current.type = type.value;
+    console.log('q', Q);
+    console.log('gain', gain);
   }
 
   function handleChangeFrequency(value) {
@@ -98,6 +102,7 @@ export default function Filter({
   function handleChangeQ(value) {
     setQ(value);
     node.current.Q.value = value;
+    console.log(value);
   }
 
   function handleChangeGain(value) {
@@ -112,13 +117,25 @@ export default function Filter({
           handleChange={handleChangeFrequency}
           frequency={frequency}
         />
-        <RadialDial
-          handleChange={handleChangeDetune}
-          initValue={Q}
-          min={0.0001}
-          max={1000}
-          label='Q'
-        />
+        {type.hasQ && (
+          <RadialDial
+            handleChange={handleChangeQ}
+            initValue={Q}
+            min={0.0001}
+            max={100}
+            label='Q'
+          />
+        )}
+        {type.hasGain && (
+          <RadialDial
+            handleChange={handleChangeGain}
+            initValue={gain}
+            min={-40}
+            max={40}
+            label='Gain'
+            unit='dB'
+          />
+        )}
         <Listbox value={type} onChange={handleChangeType}>
           <div className='relative mt-1 w-full'>
             <Listbox.Button className='relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm text-black'>
