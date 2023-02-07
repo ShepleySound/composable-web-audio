@@ -1,8 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Audio } from './AudioContext';
+import ConnectableNode from './ConnectableNode';
 import FrequencyKnob from './FrequencyKnob';
-import NodeContainer from './NodeContainer';
-import { Series } from './Series';
 
 export default function Filter({
   initType = 'lowpass',
@@ -12,8 +11,6 @@ export default function Filter({
   initGain = 0,
 }) {
   const audio = useContext(Audio);
-  const parent = useContext(Series);
-  const id = useRef(`Filter${Date.now()}`);
   const [type, setType] = useState(initType);
   const [frequency, setFrequency] = useState(initFrequency);
   const [detune, setDetune] = useState(initDetune);
@@ -54,21 +51,15 @@ export default function Filter({
     node.current.gain.value = value;
   }
 
-  useEffect(() => {
-    parent.nodes.set(id.current, node.current);
-
-    return () => {
-      parent.nodes.delete(id.current);
-    };
-  });
-
   return (
-    <NodeContainer>
-      <label>{`${type} Filter`}</label>
-      <FrequencyKnob
-        handleChange={handleChangeFrequency}
-        frequency={frequency}
-      />
-    </NodeContainer>
+    <ConnectableNode node={node.current}>
+      <div className='flex flex-col'>
+        <label>{`${type} Filter`}</label>
+        <FrequencyKnob
+          handleChange={handleChangeFrequency}
+          frequency={frequency}
+        />
+      </div>
+    </ConnectableNode>
   );
 }

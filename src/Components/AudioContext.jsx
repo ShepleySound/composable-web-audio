@@ -8,8 +8,12 @@ export function AudioProvider({ children }) {
       value={{
         ctx: new AudioContext(),
         nodes: new Map(),
-        addNode(key, val) {
-          nodes.set(key, val);
+        addNode(node) {
+          this.nodes.set(node, []);
+        },
+        connectNode(source, destination) {
+          const destinationArray = this.nodes.get(destination);
+          destinationArray.push(source);
         },
       }}
     >

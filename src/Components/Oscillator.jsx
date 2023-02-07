@@ -4,13 +4,10 @@ import { RadioGroup } from '@headlessui/react';
 
 import { Audio } from './AudioContext';
 import FrequencyKnob from './FrequencyKnob';
-import { Series } from './Series';
-import NodeContainer from './NodeContainer';
+import ConnectableNode from './ConnectableNode';
 
 export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   const audio = useContext(Audio);
-  const parent = useContext(Series);
-  const id = useRef(`Osc${Date.now()}`);
   const [frequency, setFrequency] = useState(initFrequency);
   const node = useRef(
     new OscillatorNode(audio.ctx, {
@@ -25,20 +22,11 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
     } catch (err) {
       console.log('Ignoring second start call');
     }
-    parent.nodes.set(id.current, node.current);
-
     return () => {
       // node.current.stop();
       // node.current.disconnect();
-      parent.nodes.delete(id.current);
     };
   }, []);
-
-  useEffect(() => {
-    // console.log(frequency);
-    // console.log(node.current.frequency.value);
-    node.current.frequency.value = frequency;
-  }, [frequency]);
 
   const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
 
@@ -47,15 +35,20 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
     node.current.type = type;
   }
 
+  function changeFrequency(value) {
+    setFrequency(value);
+    node.current.frequency.value = value;
+  }
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
   }
 
   return (
-    <NodeContainer>
+    <ConnectableNode node={node.current}>
       <label>Oscillator</label>
       <div>
-        <FrequencyKnob handleChange={setFrequency} frequency={frequency} />
+        <FrequencyKnob handleChange={changeFrequency} frequency={frequency} />
       </div>
       <div>
         <RadioGroup value={type} onChange={changeType}>
@@ -88,6 +81,6 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
           </div>
         </RadioGroup>
       </div>
-    </NodeContainer>
+    </ConnectableNode>
   );
 }

@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 
 import { Audio } from './AudioContext';
-import { Series } from './Series';
-import NodeContainer from './NodeContainer';
+import ConnectableNode from './ConnectableNode';
 
 export default function Analyser() {
   const audio = useContext(Audio);
-  const parent = useContext(Series);
-  const id = useRef(`Analyser${Date.now()}`);
   const node = useRef(new AnalyserNode(audio.ctx, { fftSize: 2048 }));
   const bufferLength = node.current.frequencyBinCount;
 
@@ -48,19 +45,9 @@ export default function Analyser() {
     return () => cancelAnimationFrame(requestRef.current);
   }, []);
 
-  useEffect(() => {
-    parent.nodes.set(id.current, node.current);
-
-    return () => {
-      // node.current.stop();
-      // node.current.disconnect();
-      parent.nodes.delete(id.current);
-    };
-  }, []);
-
   return (
-    <NodeContainer>
+    <ConnectableNode node={node.current}>
       <canvas className='w-full h-full' ref={canvasRef} />
-    </NodeContainer>
+    </ConnectableNode>
   );
 }
