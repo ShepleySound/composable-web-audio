@@ -57,61 +57,45 @@ const filterTypes = [
   },
 ];
 
-export default function Filter({
-  initType = filterTypes[0],
-  initFrequency = '350',
-  initDetune = 0,
-  initQ = 1,
-  initGain = 0,
-}) {
-  const audio = useContext(Audio);
-  const [type, setType] = useState(initType);
-  const [frequency, setFrequency] = useState(initFrequency);
-  const [detune, setDetune] = useState(initDetune);
-  const [Q, setQ] = useState(initQ);
-  const [gain, setGain] = useState(initGain);
-  const node = useRef(
-    new BiquadFilterNode(audio.ctx, {
-      type: type.value,
-      frequency,
-      detune,
-      Q,
-      gain,
-    })
-  );
+export default function Filter({ node }) {
+  const [type, setType] = useState(matchTypeByString(node.type));
+  const [frequency, setFrequency] = useState(node.frequency.value);
+  const [detune, setDetune] = useState(node.detune.value);
+  const [Q, setQ] = useState(node.Q.value);
+  const [gain, setGain] = useState(node.gain.value);
+  console.log(node);
+
+  function matchTypeByString(string) {
+    return filterTypes.find((type) => type.value === string);
+  }
 
   function handleChangeType(type) {
-    console.log('q', Q);
-    console.log('gain', gain);
-    setType(type);
-    node.current.type = type.value;
-    console.log('q', Q);
-    console.log('gain', gain);
+    node.type = type.value;
+    setType(matchTypeByString(node.type));
   }
 
   function handleChangeFrequency(value) {
-    setFrequency(value);
-    node.current.frequency.value = value;
+    node.frequency.value = value;
+    setFrequency(node.frequency.value);
   }
 
   function handleChangeDetune(value) {
-    setDetune(value);
-    node.current.detune.value = value;
+    node.detune.value = value;
+    setDetune(node.detune.value);
   }
 
   function handleChangeQ(value) {
-    setQ(value);
-    node.current.Q.value = value;
-    console.log(value);
+    node.Q.value = value;
+    setQ(node.Q.value);
   }
 
   function handleChangeGain(value) {
-    setGain(value);
-    node.current.gain.value = value;
+    node.gain.value = value;
+    setGain(node.gain.value);
   }
 
   return (
-    <ConnectableNode node={node.current} title='Biquad Filter'>
+    <>
       <div className='flex w-full'>
         <FrequencyKnob
           handleChange={handleChangeFrequency}
@@ -175,6 +159,6 @@ export default function Filter({
           </div>
         </Listbox>
       </div>
-    </ConnectableNode>
+    </>
   );
 }

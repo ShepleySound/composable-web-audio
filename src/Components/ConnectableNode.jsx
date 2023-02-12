@@ -7,16 +7,13 @@ export default function ConnectableNode({
   children,
   input = true,
   output = true,
-  id = uuidv4(),
   inputSelected = false,
   outputSelected = false,
   node,
   title,
 }) {
   const connector = useContext(Connector);
-  useEffect(() => {
-    connector.addNode(node);
-  }, []);
+
   return (
     <NodeContainer title={title}>
       {input && (

@@ -1,43 +1,21 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState } from 'react';
 
 import { RadioGroup } from '@headlessui/react';
 
-import { Audio } from './AudioContext';
-import FrequencyKnob from './FrequencyKnob';
-import ConnectableNode from './ConnectableNode';
-
-export default function Osc({ initFrequency = 20, initType = 'sine' }) {
-  const audio = useContext(Audio);
-  const [frequency, setFrequency] = useState(initFrequency);
-  const node = useRef(
-    new OscillatorNode(audio.ctx, {
-      frequency,
-    })
-  );
-  const [type, setType] = useState(initType);
-
-  useEffect(() => {
-    try {
-      node.current.start();
-    } catch (err) {
-      console.log('Ignoring second start call');
-    }
-    return () => {
-      // node.current.stop();
-      // node.current.disconnect();
-    };
-  }, []);
+export default function Osc({ node }) {
+  const [frequency, setFrequency] = useState(node.frequency.value);
+  const [type, setType] = useState(node.type);
 
   const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
 
   function changeType(type) {
-    setType(type);
-    node.current.type = type;
+    node.type = type;
+    setType(node.type);
   }
 
   function changeFrequency(value) {
-    setFrequency(value);
-    node.current.frequency.value = value;
+    node.frequency.value = value;
+    setFrequency(node.frequency.value);
   }
 
   function classNames(...classes) {
@@ -45,9 +23,16 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
   }
 
   return (
-    <ConnectableNode node={node.current}>
+    <div className='h-full w-full'>
       <div>
-        <FrequencyKnob handleChange={changeFrequency} frequency={frequency} />
+        <input
+          type='range'
+          min={80}
+          max={20000}
+          step={0.1}
+          value={frequency}
+          onChange={(e) => changeFrequency(e.target.value)}
+        />
       </div>
       <div>
         <RadioGroup value={type} onChange={changeType}>
@@ -80,6 +65,6 @@ export default function Osc({ initFrequency = 20, initType = 'sine' }) {
           </div>
         </RadioGroup>
       </div>
-    </ConnectableNode>
+    </div>
   );
 }
